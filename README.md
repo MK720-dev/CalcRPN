@@ -60,7 +60,7 @@ Here’s a step-by-step explanation of the parse_expression function:
     After the entire expression has been processed, the function ensures that the operator stack is empty.
     Operators remaining in the stack are popped and enqueued into the output queue. If a mismatched parenthesis (( or )) is found in the stack, an error is            reported, and the function returns 0.
    
-4. <ins>Return Value</ins>
+4. <ins>Return Value:</ins>
     The function returns 1 if the expression is successfully parsed without errors.
     It returns 0 if any errors (e.g., invalid tokens or mismatched parentheses) are encountered.
    
