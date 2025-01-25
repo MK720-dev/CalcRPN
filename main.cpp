@@ -4,7 +4,7 @@
 int main(int argc, char *argv[]) {
     QApplication a(argc, argv);
     CalculatorApp w;
-    w.resize(350, 250);
+    w.resize(370, 250);
     w.show();
     return a.exec();
 }
