@@ -112,6 +112,7 @@ The `evaluate_rpn` function evaluates the postfix (RPN) expression produced by `
 ---
 
 ## **Graphical User Interface (GUI)**
+![CalcRPN app GUI](C:\Users\kchao\OneDrive\Images\'Captures d’écran'\CalculatorAppGUI)
 
 The Qt-based GUI provides:
 - Buttons for numeric input, operators, and functions.
