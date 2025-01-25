@@ -1,6 +1,6 @@
 # CalcRPN
 
-This is a calculator project that implements the Reverse Polish Notation (RPN) using a modified version of the Shunting Yard algorithm. The project was built with C++ for the logic and Qt Creator for the graphical user interface (GUI). It supports basic arithmetic operations, mathematical functions like sine, cosine, logarithms, and custom functions (f, g) using a stack-based evaluation approach.
+This is a calculator project that implements the Reverse Polish Notation (RPN) using a modified version of the Shunting Yard algorithm. The project was built with C++ for the logic and Qt Creator for the graphical user interface (GUI). It supports basic arithmetic operations, mathematical functions like sine, cosine, natural logarithm, and custom functions (f, g) using a stack-based evaluation approach.
 
 ## Features
 - <ins>RPN Evaluation:</ins> Supports mathematical expressions in Reverse Polish Notation (postfix notation).
