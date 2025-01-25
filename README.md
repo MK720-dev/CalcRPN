@@ -11,16 +11,15 @@ This is a calculator project that implements the Reverse Polish Notation (RPN) u
 - <ins>Error Handling:</ins> The calculator provides error messages for invalid expressions, such as mismatched parentheses or unsupported operations.
 
 ## Project Structure
-- C++ Logic: The core calculation logic is implemented in C, managing operator precedence, parsing, and function evaluation.
-- Qt GUI: The interface is created using Qt Creator, which handles user input, displays results, and provides a clean layout with buttons and output fields.
-- Header and Source Files:
+- <ins>C++ Logic:</ins> The core calculation logic is implemented in C, managing operator precedence, parsing, and function evaluation.
+- <ins>Qt GUI:</ins> The interface is created using Qt Creator, which handles user input, displays results, and provides a clean layout with buttons and output fields.
+- <ins>Header and Source Files:</ins>
     - calculatorapp.h / calculatorapp.cpp: Main Qt application logic and connections.
     - mathlogic.c: Contains the core functions like parse_expression, evaluate_rpn, and other utility functions for stack handling and function evaluation.
 ## Code Walkthrough
-Logic: The logic is based on the shunting yard algorithm to convert infix expressions to postfix notation, which is then evaluated using a stack.
-GUI: The Qt interface contains buttons for the various operations, a text box for showing the current expression, and a display for showing the output.
+- <ins>Logic:</ins> The logic is based on the shunting yard algorithm to convert infix expressions to postfix notation, which is then evaluated using a stack.
+- <ins>GUI:</ins> The Qt interface contains buttons for the various operations, a text box for showing the current expression, and a display for showing the output.
 Contributing
-Feel free to fork this repository, make improvements, and submit pull requests. Issues and suggestions are also welcome!
 
 ## Installation
 Clone the repository:
@@ -54,3 +53,5 @@ Result: 14
 
 ## License
 This project is licensed under the MIT License - see the LICENSE file for details.
+
+Feel free to fork this repository, make improvements, and submit pull requests. Issues and suggestions are also welcome!
