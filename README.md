@@ -112,24 +112,20 @@ The `evaluate_rpn` function evaluates the postfix (RPN) expression produced by `
 ---
 
 ## **Graphical User Interface (GUI)**
-![CalcRPN app GUI](C:\Users\kchao\OneDrive\Images\'Captures d’écran'\CalculatorAppGUI)
+
+![CalculatorAppGui](https://github.com/user-attachments/assets/37f16b9e-5307-4f98-8921-bd1fa1736ece)
 
 The Qt-based GUI provides:
 - Buttons for numeric input, operators, and functions.
-- A text field for entering expressions.
-- A display area for results and errors.
+- A display area for entering expressions that supports keyboard input and servers for the result display as well.  
+- An RPN button that would display the postfix notation for the mathematical expression after evaluation of the latter. The postfix notation would have the final    result  appended to it at the end as well. 
 - A clean and intuitive layout for user interaction.
+- Extra information about the RPN button as well as the f and g functions are displayed as you hover over their respective buttons.
+- A clear all button 'C' to clear the input/output display. 
 
 ---
 
 ## **Contributing**
 Feel free to suggest enhancements or contribute to the project. Pull requests are welcome for improving functionality, adding features, or optimizing the code.
-
----
-
-## **Additional Notes**
-- **Error Handling:** Comprehensive checks for invalid input ensure reliability.
-- **Extensibility:** The modular design allows for easy addition of new functions or operators.
-- **Applications:** This project can serve as a foundation for more advanced calculators or mathematical tools.
 
 
