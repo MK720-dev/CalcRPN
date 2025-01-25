@@ -17,10 +17,11 @@ This is a calculator project that implements the Reverse Polish Notation (RPN) u
     - calculatorapp.h / calculatorapp.cpp: Main Qt application logic and connections.
     - mathlogic.h / mathlogic.c: Contains the core functions like parse_expression, evaluate_rpn, and other utility functions for stack handling and function evaluation.
 ## Code Walkthrough
-### Logic: 
 The logic is based on the shunting yard algorithm to convert infix expressions to postfix notation, which is then evaluated using a stack.
 
 The two main parts of the code are the **parse_expression** and the **evaluate_rpn functions**.
+
+### Parsing Logic: 
 
 The parse_expression function is designed to parse a mathematical expression and produce an output in a format inspired by the Shunting Yard algorithm, developed by Edsger Dijkstra. The Shunting Yard algorithm converts infix notation (e.g., 3 + 4 * 2) into postfix (Reverse Polish Notation, RPN, e.g., 3 4 2 * +). The function processes tokens in the input string (expression) and determines how to handle them based on their type (number, operator, function, parentheses, etc.).
 
@@ -52,6 +53,7 @@ Here’s a step-by-step explanation of the parse_expression function:
         Spaces:
 
     - Whitespace characters are ignored.
+   
     - Invalid Tokens:
 
         If any other character is encountered, it is treated as an invalid token, and an error message is printed. The function then returns 0 to signal a parsing         error.
@@ -63,8 +65,9 @@ Here’s a step-by-step explanation of the parse_expression function:
 4. <ins>Return Value:</ins>
     The function returns 1 if the expression is successfully parsed without errors.
     It returns 0 if any errors (e.g., invalid tokens or mismatched parentheses) are encountered.
-   
-Key Concepts:
+
+
+### Key Concepts and Shunting Yard extensions:
 
     - <ins>Operator Precedence and Associativity</ins>:    
         Operators are pushed onto the stack, and their precedence and associativity determine when they are popped and added to the output queue.
