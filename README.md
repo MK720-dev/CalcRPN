@@ -26,11 +26,11 @@ The parse_expression function is designed to parse a mathematical expression and
 
 Here’s a step-by-step explanation of the parse_expression function:
 
-1. <ins>Initialization and Setup:<\ins>
+1. <ins>Initialization and Setup:</ins>
    The input string expression is processed character by character.
    A token buffer is used to store intermediate strings, like numbers or function names, for further processing.
    
-2. <ins>Token Parsing:<\ins>
+2. <ins>Token Parsing:</ins>
 
     - Numeric Tokens:
 
@@ -56,31 +56,31 @@ Here’s a step-by-step explanation of the parse_expression function:
 
         If any other character is encountered, it is treated as an invalid token, and an error message is printed. The function then returns 0 to signal a parsing         error.
       
-3. <ins>Post-Processing:<\ins>
+3. <ins>Post-Processing:</ins>
     After the entire expression has been processed, the function ensures that the operator stack is empty.
     Operators remaining in the stack are popped and enqueued into the output queue. If a mismatched parenthesis (( or )) is found in the stack, an error is            reported, and the function returns 0.
    
-4. <ins>Return Value<\ins>
+4. <ins>Return Value</ins>
     The function returns 1 if the expression is successfully parsed without errors.
     It returns 0 if any errors (e.g., invalid tokens or mismatched parentheses) are encountered.
    
 Key Concepts:
-    - <ins>Operator Precedence and Associativity<\ins>:    
+    - <ins>Operator Precedence and Associativity</ins>:    
         Operators are pushed onto the stack, and their precedence and associativity determine when they are popped and added to the output queue.
 
-    - <ins>Function Handling:<\ins>
+    - <ins>Function Handling:</ins>
         In the original Shunting Yard algorithm, handling functions is not part of the core logic since it primarily deals with operators, numbers, and                    parentheses. By introducing a function stack, this implementation extends the algorithm to support functions like f or g (or other user-defined                    functions), which may take arguments and need special processing.
 
         Here’s an explanation of how the function stack is integrated into the extended algorithm:
 
-            - <ins>Purpose of the Function Stack:<\ins>
+            - <ins>Purpose of the Function Stack:</ins>
                 The function stack is introduced to handle:
 
                     - Recognition of functions in the input (e.g., f(x), g(x, y)).
                     - Argument separation when multiple arguments are passed to functions (via commas ,).
                     - Post-processing when a function and its arguments have been fully processed (at the closing parenthesis )).
                     
-            - <ins>Changes to the Shunting Yard Approach:<\ins>
+            - <ins>Changes to the Shunting Yard Approach:</ins>
                 The function stack modifies the algorithm in the following ways:
 
                     - Pushing Functions:
@@ -97,13 +97,13 @@ Key Concepts:
                             - This ensures that sub-expressions (e.g., f(a + b, c)) are resolved correctly for each argument.
 
         
-    - <ins>Parentheses Management:<\ins>
+    - <ins>Parentheses Management:</ins>
          Parentheses (( and )) control the grouping of operations. Operators inside parentheses are only processed when the closing parenthesis is encountered.
          
-    - <ins>Output Queue:<\ins>
+    - <ins>Output Queue:</ins>
         The final result of the parsing is stored in the output queue, which represents the expression in postfix notation.
         
-    -<ins>Customizations and Features:<\ins>
+    -<ins>Customizations and Features:</ins>
         The function extends the basic Shunting Yard algorithm by:
             - Supporting functions and their arguments (handled via commas).
             - Allowing negative numbers, specifically by checking for valid positions of the - sign.
