@@ -13,7 +13,6 @@ CalculatorApp::CalculatorApp(QWidget *parent)
         connect(button, &QPushButton::clicked, this, &CalculatorApp::onButtonClicked);
     }
     connect(ui->pushButton_23, &QPushButton::clicked, this, &CalculatorApp::evaluateExpression);
-    //connect(ui->btnDelete, &QPushButton::clicked, this, &CalculatorApp::deleteLastButtonInput);
     connect(ui->lineEdit, &QLineEdit::textChanged, this, &CalculatorApp::updateExpression);
     connect(ui->showQueueButton, &QPushButton::clicked, this, &CalculatorApp::displayOutputQueue);
 
