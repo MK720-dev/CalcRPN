@@ -4,6 +4,7 @@
 #include <ctype.h>
 #include <math.h>
 #include <string.h>
+#include <calculatorapp.h>
 
 #define MAX_SIZE 100
 
@@ -76,6 +77,20 @@ void enqueue_output(const char *token) {
     strcpy(output_queue[output_rear++], token);
 }
 
+void dequeue_output(){
+
+    // Clear the front element (optional)
+    memset(output_queue[output_front], 0, sizeof(output_queue[output_front]));
+
+    // Move the front pointer forward
+    output_front = (output_front + 1) % 100; // Assuming circular queue, adjust as needed
+
+    // Decrement the rear if the queue becomes empty after dequeue (optional)
+    if (output_front == output_rear) {
+        output_front = output_rear = 0; // Reset the queue if it's now empty
+    }
+}
+
 // Get the front index of the output queue
 int get_output_front() {
     return output_front;
@@ -103,6 +118,17 @@ char* get_output_queue_as_string() {
     }
 
     return queue_string;
+}
+
+int is_output_queue_empty(){
+    return output_rear == output_front;
+}
+void clear_output_queue() {
+    // Logic to clear your queue
+    // For example, if the queue is a std::queue, you can do:
+    while (!is_output_queue_empty()) {
+        dequeue_output();
+    }
 }
 
 // Operator precedence
@@ -181,8 +207,9 @@ void handle_comma() {
     }
 }
 
-// Parse the expression into postfix
-int parse_expression(const char *expression) {
+
+// Parse the expression into postfix (old parse function)
+/*int parse_expression(const char *expression) {
     char token[MAX_SIZE];
     int i = 0, j;
 
@@ -241,6 +268,74 @@ int parse_expression(const char *expression) {
     }
 
     return 1; // Success
+}*/
+
+// Parse the expression into postfix
+int parse_expression(const char *expression) {
+    char token[MAX_SIZE];
+    int i = 0, j;
+
+    while (expression[i] != '\0') {
+        if (isalpha(expression[i])) {
+            j = 0;
+            while (isalpha(expression[i])) {
+                token[j++] = expression[i++];
+            }
+            token[j] = '\0';
+
+            if (is_function(token)) {
+                handle_function(token);
+            } else {
+                enqueue_output(token);
+            }
+            continue;
+        } else if (isdigit(expression[i]) || ((expression[i] == '-') && (expression[i-1]== '(' || expression[i-1] == ',' || i == 0))) {
+            j = 0;
+            if (expression[i] == '-') {
+                token[j++] = expression[i++];
+            }
+            while (isdigit(expression[i])) {
+                token[j++] = expression[i++];
+            }
+            if (expression[i] == '.') {
+                token[j++] = expression[i++];
+                while (isdigit(expression[i])) {
+                    token[j++] = expression[i++];
+                }
+            }
+            token[j] = '\0';
+            enqueue_output(token);
+            continue;
+        } else if (is_operator(expression[i])) {
+            handle_operator(expression[i]);
+        } else if (expression[i] == '(' || expression[i] == ')') {
+            if (!handle_parentheses(expression[i])) {
+                return 0;
+            }
+        } else if (expression[i] == ',') {
+            handle_comma();
+        } else if (isspace(expression[i])) {
+            // Ignore spaces
+        } else {
+            printf("Error: Invalid token '%c'\n", expression[i]);
+            return 0;
+        }
+        i++;
+    }
+
+    while (!is_operator_stack_empty()) {
+        char op = pop_operator();
+        if (op == '(' || op == ')') {
+            printf("Error: Mismatched parentheses\n");
+            return 0;
+        }
+        char op_char[2];
+        op_char[0] = op;
+        op_char[1] = '\0';
+        enqueue_output(op_char);
+    }
+
+    return 1;
 }
 
 // Define the f and g functions
@@ -284,7 +379,7 @@ double evaluate_rpn() {
     for (int i = output_front; i < output_rear; i++) {
         char *token = output_queue[i];
 
-        if (isdigit(token[0])) {
+        if (isdigit(token[0]) || (token[0] == '-' && isdigit(token[1]))) {
             push_eval(atof(token));
         } else if (is_operator(token[0])) {
             double operand2 = pop_eval();

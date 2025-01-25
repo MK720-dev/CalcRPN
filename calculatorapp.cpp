@@ -35,6 +35,8 @@ void CalculatorApp::onButtonClicked() {
     } else if (buttonText == "C") {
         currentExpression.clear();
         ui->lineEdit->clear();
+        ui->outputTextBox->clear();
+        clear_output_queue();
     }else if (buttonText == "del"){
         deleteLastButtonInput();
     }else {

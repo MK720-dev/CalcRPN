@@ -22,9 +22,12 @@ private slots:
     void keyPressEvent(QKeyEvent *event);
     void displayOutputQueue();
 
+
 private:
     Ui::CalculatorApp *ui;
     QString currentExpression; // Stores the current expression
+
 };
+
 
 #endif // CALCULATORAPP_H
