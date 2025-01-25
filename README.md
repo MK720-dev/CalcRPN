@@ -65,6 +65,7 @@ Here’s a step-by-step explanation of the parse_expression function:
     It returns 0 if any errors (e.g., invalid tokens or mismatched parentheses) are encountered.
    
 Key Concepts:
+
     - <ins>Operator Precedence and Associativity</ins>:    
         Operators are pushed onto the stack, and their precedence and associativity determine when they are popped and added to the output queue.
 
