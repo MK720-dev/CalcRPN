@@ -3,12 +3,12 @@
 This is a calculator project that implements the Reverse Polish Notation (RPN) using a modified version of the Shunting Yard algorithm. The project was built with C++ for the logic and Qt Creator for the graphical user interface (GUI). It supports basic arithmetic operations, mathematical functions like sine, cosine, logarithms, and custom functions (f, g) using a stack-based evaluation approach.
 
 ## Features
-- <ins>RPN Evaluation:<ins> Supports mathematical expressions in Reverse Polish Notation (postfix notation).
-- <ins>Shunting Yard Algorithm:<ins> Parses infix expressions to convert them into postfix (RPN) format.
-- <ins>Mathematical Functions:<ins> Includes built-in functions like sin, cos, log, tan, sqrt, exp, and custom functions f and g.
-- <ins>Graphical User Interface (GUI):<ins> Built using Qt, the interface features buttons for numeric input, operators, functions, and a text display for showing results and errors.
-- <ins>Expression History:<ins> Users can view the output queue of the parsed expression.
-- <ins>Error Handling:<ins> The calculator provides error messages for invalid expressions, such as mismatched parentheses or unsupported operations.
+- <ins>RPN Evaluation:</ins> Supports mathematical expressions in Reverse Polish Notation (postfix notation).
+- <ins>Shunting Yard Algorithm:</ins> Parses infix expressions to convert them into postfix (RPN) format.
+- <ins>Mathematical Functions:</ins> Includes built-in functions like sin, cos, log, tan, sqrt, exp, and custom functions f and g.
+- <ins>Graphical User Interface (GUI):</ins> Built using Qt, the interface features buttons for numeric input, operators, functions, and a text display for showing results and errors.
+- <ins>Expression History:</ins> Users can view the output queue of the parsed expression.
+- <ins>Error Handling:</ins> The calculator provides error messages for invalid expressions, such as mismatched parentheses or unsupported operations.
 
 ## Project Structure
 - C++ Logic: The core calculation logic is implemented in C, managing operator precedence, parsing, and function evaluation.
