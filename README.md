@@ -127,6 +127,11 @@ The Qt-based GUI provides:
 
 ---
 
+## **How to run the calculator**
+Once you download or clone the repository, go to the debug folder and execute the **RPN_Calculator.exe** file. Have fun!
+
+---
+
 ## **Contributing**
 Feel free to suggest enhancements or contribute to the project. Pull requests are welcome for improving functionality, adding features, or optimizing the code.
 
