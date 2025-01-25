@@ -1,156 +1,134 @@
-# CalcRPN
+# **CalcRPN**
 
-This is a calculator project that implements the Reverse Polish Notation (RPN) using a modified version of the Shunting Yard algorithm. The project was built with C++ for the logic and Qt Creator for the graphical user interface (GUI). It supports basic arithmetic operations, mathematical functions like sine, cosine, natural logarithm, and custom functions (f, g) using a stack-based evaluation approach.
+This is a calculator project that implements **Reverse Polish Notation (RPN)** using a modified version of the **Shunting Yard algorithm**. The project was built in **C++** for the core logic and **Qt Creator** for the graphical user interface (GUI). It supports basic arithmetic operations, mathematical functions like sine, cosine, logarithms, and custom functions (`f`, `g`) using a stack-based evaluation approach.
 
-## Features
-- <ins>RPN Evaluation:</ins> Supports mathematical expressions in Reverse Polish Notation (postfix notation).
-- <ins>Shunting Yard Algorithm:</ins> Parses infix expressions to convert them into postfix (RPN) format.
-- <ins>Mathematical Functions:</ins> Includes built-in functions like sin, cos, log, tan, sqrt, exp, and custom functions f and g.
-- <ins>Graphical User Interface (GUI):</ins> Built using Qt, the interface features buttons for numeric input, operators, functions, and a text display for showing results and errors.
-- <ins>Expression History:</ins> Users can view the output queue of the parsed expression.
-- <ins>Error Handling:</ins> The calculator provides error messages for invalid expressions, such as mismatched parentheses or unsupported operations.
+---
 
-## Project Structure
-- <ins>C++ Logic:</ins> The core calculation logic is implemented in C++, managing operator precedence, parsing, and function evaluation.
-- <ins>Qt GUI:</ins> The interface is created using Qt Creator, which handles user input, displays results, and provides a clean layout with buttons and output fields.
-- <ins>Header and Source Files:</ins>
-    - calculatorapp.h / calculatorapp.cpp: Main Qt application logic and connections.
-    - mathlogic.h / mathlogic.c: Contains the core functions like parse_expression, evaluate_rpn, and other utility functions for stack handling and function evaluation.
-## Code Walkthrough
-The logic is based on the shunting yard algorithm to convert infix expressions to postfix notation, which is then evaluated using a stack.
+## **Features**
+- **RPN Evaluation:** Supports mathematical expressions in Reverse Polish Notation (postfix notation).
+- **Shunting Yard Algorithm:** Parses infix expressions and converts them into postfix notation.
+- **Mathematical Functions:** Includes built-in functions like `sin`, `cos`, `log`, `tan`, `sqrt`, `exp`, and user-defined functions (`f`, `g`).
+- **Graphical User Interface (GUI):** Built using Qt, the interface provides buttons for numeric input, operators, functions, and a display for results and errors.
+- **Expression History:** Displays the output queue of parsed expressions for debugging or review.
+- **Error Handling:** Identifies and reports invalid expressions, mismatched parentheses, or unsupported operations.
 
-The two main parts of the code are the **parse_expression** and the **evaluate_rpn functions**.
+---
 
-### Parsing Logic: 
+## **Project Structure**
+1. **C++ Logic:**
+   - Implements the Shunting Yard algorithm and RPN evaluation.
+   - Handles operator precedence, parentheses, and function evaluation.
+2. **Qt GUI:**
+   - Provides an interactive interface with buttons and output fields.
+   - Displays results, errors, and the parsed output queue.
+3. **Core Files:**
+   - `calculatorapp.h` / `calculatorapp.cpp`: Main application logic and Qt connections.
+   - `mathlogic.h` / `mathlogic.c`: Contains the core functions like `parse_expression` and `evaluate_rpn`.
 
-The parse_expression function is designed to parse a mathematical expression and produce an output in a format inspired by the Shunting Yard algorithm, developed by Edsger Dijkstra. The Shunting Yard algorithm converts infix notation (e.g., 3 + 4 * 2) into postfix (Reverse Polish Notation, RPN, e.g., 3 4 2 * +). The function processes tokens in the input string (expression) and determines how to handle them based on their type (number, operator, function, parentheses, etc.).
+---
 
-Here’s a step-by-step explanation of the parse_expression function:
+## **Parsing Logic: `parse_expression`**
 
-1. <ins>Initialization and Setup:</ins>
-   The input string expression is processed character by character.
-   A token buffer is used to store intermediate strings, like numbers or function names, for further processing.
-   
-2. <ins>Token Parsing:</ins>
+The `parse_expression` function processes a mathematical expression in infix notation (e.g., `3 + 4 * 2`) and converts it to postfix (RPN) format (e.g., `3 4 2 * +`) using the **Shunting Yard algorithm**.
 
-    - Numeric Tokens:
+### **Steps in Parsing**
 
-          If the character is numeric or a negative sign at a valid position (e.g., after a (, ,, or at the beginning), it identifies a number token.
-          The function handles both integers and floating-point numbers by looking for a . character.
-          The completed numeric token is enqueued into the output queue (enqueue_output(token)).
-    - Operators:
+1. **Initialization:**
+   - Processes the input string character by character.
+   - Identifies tokens such as numbers, operators, functions, and parentheses.
 
-          If the character is an operator (is_operator(expression[i])), it is processed using handle_operator(expression[i]). This function is expected to manage            operator precedence and associativity, determining how operators are pushed to or popped from the operator stack.
-      
-    - Parentheses:
+2. **Token Types:**
+   - **Numbers:** Detects integers and floating-point numbers, including negative numbers, and adds them to the output queue.
+   - **Operators:** Manages operator precedence and associativity (e.g., `+`, `-`, `*`, `/`, `^`).
+   - **Parentheses:** Handles grouping and function arguments within parentheses.
+   - **Commas:** Separates arguments in custom functions (e.g., `f(a, b, c)`).
 
-          If the character is a parenthesis (( or )), handle_parentheses(expression[i]) is called to manage the precedence rules for expressions within                      parentheses.
-          If there is an issue with mismatched parentheses, the function immediately returns 0 to signal an error.
-      
-    - Commas:
+3. **Error Handling:**
+   - Identifies mismatched parentheses or invalid tokens.
+   - Returns an error if parsing fails.
 
-        If the character is a comma, it is handled by handle_comma(). This typically ensures that commas are used correctly as argument separators in functions.
-        Spaces:
+4. **Post-Processing:**
+   - Ensures all operators and functions are added to the output queue.
+   - Checks for any unresolved parentheses.
 
-    - Whitespace characters are ignored.
-   
-    - Invalid Tokens:
+### **Extensions to Shunting Yard**
+- **Custom Functions (`f`, `g`):** Supports user-defined functions with variable arguments.
+- **Negative Numbers:** Validates the position of the `-` sign for proper interpretation.
+- **Floating-Point Numbers:** Handles numbers with decimals.
+- **Function Stack:** Keeps track of function calls until fully processed.
 
-        If any other character is encountered, it is treated as an invalid token, and an error message is printed. The function then returns 0 to signal a parsing         error.
-      
-3. <ins>Post-Processing:</ins>
-    After the entire expression has been processed, the function ensures that the operator stack is empty.
-    Operators remaining in the stack are popped and enqueued into the output queue. If a mismatched parenthesis (( or )) is found in the stack, an error is            reported, and the function returns 0.
-   
-4. <ins>Return Value:</ins>
-    The function returns 1 if the expression is successfully parsed without errors.
-    It returns 0 if any errors (e.g., invalid tokens or mismatched parentheses) are encountered.
+---
 
+## **Evaluation Logic: `evaluate_rpn`**
 
-### Key Concepts and Shunting Yard extensions:
+The `evaluate_rpn` function evaluates the postfix (RPN) expression produced by `parse_expression`. It uses a stack to process tokens in the output queue.
 
-    - <ins>Operator Precedence and Associativity</ins>:    
-        Operators are pushed onto the stack, and their precedence and associativity determine when they are popped and added to the output queue.
+### **Steps in Evaluation**
+1. **Initialization:**
+   - Creates an evaluation stack to store intermediate results.
 
-    - <ins>Function Handling:</ins>
-        In the original Shunting Yard algorithm, handling functions is not part of the core logic since it primarily deals with operators, numbers, and                    parentheses. By introducing a function stack, this implementation extends the algorithm to support functions like f or g (or other user-defined                    functions), which may take arguments and need special processing.
+2. **Processing Tokens:**
+   - **Numbers:** Converts tokens to numeric values and pushes them onto the stack.
+   - **Operators:** Pops the required operands from the stack, applies the operation, and pushes the result back.
+   - **Functions:**
+     - **Standard Functions:** Handles `sin`, `cos`, `log`, `tan`, `sqrt`, `exp`, etc., by popping one operand and applying the function.
+     - **Custom Functions:** Pops the required arguments, evaluates the function using `evaluate_non_usual_function`, and pushes the result.
 
-        Here’s an explanation of how the function stack is integrated into the extended algorithm:
+3. **Final Result:**
+   - The result of the expression is the last value on the stack.
 
-            - <ins>Purpose of the Function Stack:</ins>
-                The function stack is introduced to handle:
+### **Key Features**
+- **Standard Operators:** Supports `+`, `-`, `*`, `/`, and `^` for arithmetic calculations.
+- **Built-in Functions:** Includes trigonometric and logarithmic functions, with angle-based functions assuming input in degrees.
+- **Custom Functions:** Extends functionality with user-defined operations (e.g., `f(x, y, z)`).
 
-                    - Recognition of functions in the input (e.g., f(x), g(x, y)).
-                    - Argument separation when multiple arguments are passed to functions (via commas ,).
-                    - Post-processing when a function and its arguments have been fully processed (at the closing parenthesis )).
-                    
-            - <ins>Changes to the Shunting Yard Approach:</ins>
-                The function stack modifies the algorithm in the following ways:
+---
 
-                    - Pushing Functions:
-                        When a function token (e.g., f) is recognized in the input, the function name is pushed onto the function stack using push_function(func).
-                        This ensures that the function name is stored until its arguments and inner operations are fully processed.
-                    - Handling Parentheses:
-                        When encountering a closing parenthesis ):
-                            - The algorithm processes the operators inside the parentheses first, ensuring that all sub-expressions (like f(a + b)) are resolved                                 correctly.
-                            - After encountering the matching opening parenthesis (, the function name on the top of the function stack is popped and enqueued                                   into the output queue (enqueue_output(pop_function())).
-                        This step signifies that the function call is complete and ready to be evaluated in postfix notation.
-                    - Handling Commas:
-                            - Commas (,) inside parentheses indicate argument separation for functions. In the extended algorithm:
-                            - The comma triggers the processing of any operators currently in the operator stack.
-                            - This ensures that sub-expressions (e.g., f(a + b, c)) are resolved correctly for each argument.
+## **Example Walkthrough**
 
-        
-    - <ins>Parentheses Management:</ins>
-         Parentheses (( and )) control the grouping of operations. Operators inside parentheses are only processed when the closing parenthesis is encountered.
-         
-    - <ins>Output Queue:</ins>
-        The final result of the parsing is stored in the output queue, which represents the expression in postfix notation.
-        
-    -<ins>Customizations and Features:</ins>
-        The function extends the basic Shunting Yard algorithm by:
-            - Supporting functions and their arguments (handled via commas).
-            - Allowing negative numbers, specifically by checking for valid positions of the - sign.
-            - Parsing floating-point numbers.
-            - Including error handling for invalid tokens and mismatched parentheses.
-            
-The second important piece of the Calculator logic is the 
+### **1. Basic Example**
+#### Input: `5 1 2 + 4 * + 3 -`  
+*(RPN for `(5 + ((1 + 2) * 4)) - 3`)*
 
-            
-- <ins>GUI:</ins> The Qt interface contains buttons for the various operations, a text box for showing the current expression, and a display for showing the output.
-Contributing
+1. Push `5`, `1`, and `2` onto the stack.
+2. Process `+`: `1 + 2 = 3`. Push `3`.
+3. Push `4`. Process `*`: `3 * 4 = 12`. Push `12`.
+4. Process `+`: `5 + 12 = 17`. Push `17`.
+5. Push `3`. Process `-`: `17 - 3 = 14`.
 
-## Installation
-Clone the repository:
-bash
-Copy
-Edit
-git clone https://github.com/yourusername/rpn-calculator.git
-Install Qt Creator: If you haven't already, download and install Qt Creator.
-Open the project: Open the .pro file in Qt Creator.
-Build and Run: Build the project and run it through Qt Creator. The GUI will appear, and you can start evaluating mathematical expressions.
-Usage
-Enter an Expression: Type in a mathematical expression using the buttons on the GUI.
-Evaluate: Press the = button to evaluate the expression.
-Clear: Press the C button to clear the current expression and output.
-Delete Last Input: Press the del button to remove the last character from the expression.
-Output Queue: Press the "Show Queue" button to view the output queue of the current expression.
-Supported Operations
-Arithmetic: +, -, *, /, ^
-Functions: sin, cos, log, tan, sqrt, exp, f (sum), g (product)
-Example Input:
-plaintext
-Copy
-Edit
-3 4 + 2 * = 14
-Example Output:
-plaintext
-Copy
-Edit
-Result: 14
+**Result:** `14`
+
+### **2. Custom Function Example**
+#### Input: `f 1 2 3 , ,`
+*(RPN for `f(1, 2, 3)` with `f` as a custom function)*
+
+1. Push `1`, `2`, and `3` onto the stack.
+2. Recognize `f` and count 3 arguments.
+3. Call `evaluate_non_usual_function("f", 3)` to compute `f(1, 2, 3)`.
+4. Push the result onto the stack.
+
+**Result:** Computed value of `f(1, 2, 3)`.
+
+---
+
+## **Graphical User Interface (GUI)**
+
+The Qt-based GUI provides:
+- Buttons for numeric input, operators, and functions.
+- A text field for entering expressions.
+- A display area for results and errors.
+- A clean and intuitive layout for user interaction.
+
+---
+
+## **Contributing**
+Feel free to suggest enhancements or contribute to the project. Pull requests are welcome for improving functionality, adding features, or optimizing the code.
+
+---
+
+## **Additional Notes**
+- **Error Handling:** Comprehensive checks for invalid input ensure reliability.
+- **Extensibility:** The modular design allows for easy addition of new functions or operators.
+- **Applications:** This project can serve as a foundation for more advanced calculators or mathematical tools.
 
 
-## License
-This project is licensed under the MIT License - see the LICENSE file for details.
-
-Feel free to fork this repository, make improvements, and submit pull requests. Issues and suggestions are also welcome!
